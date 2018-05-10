@@ -8,10 +8,13 @@
 </head>
 <body>
     <h1>Faça seu login</h1>
-    <asp:Login 
+    <form runat="server">
+        <asp:Login 
         ID="Login" 
         runat="server" 
         DestinationPageUrl="~/Tela.aspx">
     </asp:Login>
+    </form>
+    
 </body>
 </html>
