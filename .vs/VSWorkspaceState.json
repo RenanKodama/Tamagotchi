@@ -1,10 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Game",
-    "\\Game\\Tamagochi",
-    "\\Game\\Tamagochi\\Tamagochi"
+    "\\Game"
   ],
-  "SelectedNode": "\\Game\\Tamagochi\\Tamagochi\\Default.aspx",
+  "SelectedNode": "\\Game\\Game.sln",
   "PreviewInSolutionExplorer": false
 }
