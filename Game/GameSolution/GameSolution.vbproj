@@ -177,6 +177,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Personagem.vb" />
     <Compile Include="Tela.aspx.designer.vb">
       <DependentUpon>Tela.aspx</DependentUpon>
     </Compile>
