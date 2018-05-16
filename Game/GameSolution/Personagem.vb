@@ -1,34 +1,20 @@
 ﻿Public Class Personagem
 
-    Private Name As String          'nome do pet virtual
-    Private Happy As Integer        'barra de felicidade
-    Private Hunger As Integer       'barra de fome
-    Private Health As Integer       'barra de saude
+    Public Shared Name As String          'nome do pet virtual
+    Public Shared Happy As Integer = 50        'barra de felicidade
+    Public Shared Hunger As Integer = 30       'barra de fome
+    Public Shared Health As Integer = 100       'barra de saude
+    Public Shared Energy As Integer = 95       'barra de saude
 
-    Private Sick As Integer         'precisa se curar (cure)
-    Private Tired As Integer        'precisa dormir (sleep)
-    Private Dirty As Integer        'precisa se limpar (flush)
-    Private Sad As Integer          'precisa brincar (play)
-    Private Sleeping As Boolean     'pode dormir ou acordar a qualquer momento (+health -hunger)
+    Private Sick As Integer = 30        'precisa se curar (cure)
+    Private Tired As Integer = 30        'precisa dormir (sleep)
+    Private Dirty As Integer = 30       'precisa se limpar (flush)
+    Private Sad As Integer = 30          'precisa brincar (play)
+    Private Sleeping As Boolean = False     'pode dormir ou acordar a qualquer momento (+health -hunger)
 
-    Private Dead As Boolean         'recomeçar o pet
+    Private Dead As Boolean                 'recomeçar o pet
 
 
-    'criaçao do construtor
-    Public Sub New(ByVal name_pet)
-        Name = name_pet
-        Happy = 100
-        Hunger = 100
-        Health = 100
-
-        Sick = 30
-        Tired = 30
-        Dirty = 30
-        Sad = 30
-        Sleeping = 30
-
-        Dead = False
-    End Sub
 
     'funçoes de getters e setters
     Public Function GetName()
@@ -57,6 +43,14 @@
 
     Public Function SetHealth(ByVal value_health)
         Health = value_health
+    End Function
+
+    Public Function GetEnergy()
+        Return Energy
+    End Function
+
+    Public Function SetEnergy(ByRef value_energy)
+        Energy = value_energy
     End Function
 
     Public Function GetSick()
