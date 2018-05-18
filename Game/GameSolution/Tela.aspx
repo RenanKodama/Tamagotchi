@@ -3,33 +3,103 @@
 <script runat="server">
     Dim person As New Personagem()
 
+
     Protected Sub ButtonFeed_Click(sender As Object, e As EventArgs)
-        person.SetHunger(500)
+        Dim aux_hunger As Integer = person.GetHunger()
+        Dim aux_energy As Integer = person.GetEnergy()
+
+        aux_hunger -= CInt(Math.Ceiling(Rnd() * 10)) + 1
+        aux_energy -= CInt(Math.Ceiling(Rnd() * 25)) + 1
 
 
+        If aux_hunger < 0 Then
+            aux_hunger = 0
+        End If
 
+        If aux_energy < 1 Then
+            aux_energy = 0
+        End If
 
+        person.SetHunger(aux_hunger)
+        person.SetEnergy(aux_energy)
         PanelStatus.Update()
-
     End Sub
 
     Protected Sub ButtonFlush_Click(sender As Object, e As EventArgs)
+        Dim aux_health As Integer = person.GetHealth()
+        Dim aux_energy As Integer = person.GetEnergy()
 
+        aux_health += CInt(Math.Ceiling(Rnd() * 10)) + 1
+        aux_energy -= CInt(Math.Ceiling(Rnd() * 25)) + 1
+
+        If aux_health > 100 Then
+            aux_health = 100
+        End If
+
+        If aux_energy < 1 Then
+            aux_energy = 0
+        End If
+
+        person.SetEnergy(aux_energy)
+        person.SetHealth(aux_health)
+        PanelStatus.Update()
     End Sub
 
     Protected Sub ButtonPlay_Click(sender As Object, e As EventArgs)
+        Dim aux_happy As Integer = person.GetHappy()
+        Dim aux_energy As Integer = person.GetEnergy()
+        Dim aux_hunger As Integer = person.GetHunger()
 
+        aux_happy += CInt(Math.Ceiling(Rnd() * 10)) + 1
+        aux_energy -= CInt(Math.Ceiling(Rnd() * 25)) + 1
+        aux_hunger += CInt(Math.Ceiling(Rnd() * 10)) + 1
+
+        If aux_happy > 100 Then
+            aux_happy = 100
+        End If
+
+        If aux_energy < 0 Then
+            aux_energy = 0
+        End If
+
+        If aux_hunger > 100 Then
+            aux_hunger = 100
+        End If
+
+        person.SetHappy(aux_happy)
+        person.SetEnergy(aux_energy)
+        person.SetHunger(aux_hunger)
+        PanelStatus.Update()
     End Sub
 
     Protected Sub ButtonCure_Click(sender As Object, e As EventArgs)
+        Dim aux_health As Integer = person.GetHealth()
 
+        aux_health += CInt(Math.Ceiling(Rnd() * 10)) + 1
+
+        If aux_health > 100 Then
+            aux_health = 100
+        End If
+
+        person.SetHealth(aux_health)
+        PanelStatus.Update()
     End Sub
 
     Protected Sub ButtonLights_Click(sender As Object, e As EventArgs)
+        Dim aux_sleep As Boolean = person.GetSleeping()
 
+        If aux_sleep = True Then
+            aux_sleep = False
+        Else
+            aux_sleep = True
+        End If
+
+        person.SetSleeping(aux_sleep)
+        PanelStatus.Update()
     End Sub
 
     Protected Sub Page_Load(sender As Object, e As EventArgs)
+
 
     End Sub
 
@@ -49,17 +119,23 @@
         BoxEnergy.Text = person.GetEnergy
     End Sub
 
+    Protected Sub Timer_Tick(ByVal sender As Object, ByVal e As EventArgs)
+        Dim aux_happy As Integer = person.GetHappy()
+        Dim aux_hunger As Integer = person.GetHunger
+        Dim aux_health As Integer = person.GetHealth()
+        Dim aux_energy As Integer = person.GetEnergy()
 
-    'Protected Function ApenasParaTestar()
-    'Dim auxiliar As String
+        aux_happy -= CInt(Math.Ceiling(Rnd() * 2)) + 1
+        aux_hunger += CInt(Math.Ceiling(Rnd() * 2)) + 1
+        aux_health -= CInt(Math.Ceiling(Rnd() * 2)) + 1
+        aux_energy -= CInt(Math.Ceiling(Rnd() * 2)) + 1
 
-    '   auxiliar = "Teste!"
-
-    'Return auxiliar
-
-    'End Function
-
-
+        person.SetHappy(aux_happy)
+        person.SetHunger(aux_hunger)
+        person.SetHealth(aux_health)
+        person.SetEnergy(aux_energy)
+        PanelStatus.Update()
+    End Sub
 </script>
 
 
@@ -68,6 +144,7 @@
 
 <body style="height: 380px; width: 510px; text-align: center;">
     <form id="form1" runat="server">
+        <asp:Timer ID="Timer1" OnTick="Timer_Tick" runat="server" Interval="2000"/>
 
 
         <asp:Panel ID="PanelActions" runat="server" style="position:absolute; top: 326px; left: 15px; width: 315px; height: 65px;">
@@ -94,12 +171,7 @@
                 <asp:Label ID="LabelEnergy"     runat="server" Text="Energy" style="position:absolute; top: -9px; left: 100px; height: 2px; width: 1px;" Font-Size="Small"></asp:Label>
                 <asp:TextBox ID="BoxEnergy"     runat="server" style="position:absolute; top: -12px; left: 148px; width: 32px;" OnLoad="TextBoxEnergy_TextChanged"></asp:TextBox>    
             </ContentTemplate>
-        </asp:UpdatePanel>
-
-        
-        
-
-        
+        </asp:UpdatePanel>        
     </form>
 </body>
 

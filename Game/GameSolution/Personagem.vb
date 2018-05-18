@@ -1,16 +1,16 @@
 ﻿Public Class Personagem
 
-    Public Shared Name As String          'nome do pet virtual
-    Public Shared Happy As Integer = 50        'barra de felicidade
-    Public Shared Hunger As Integer = 30       'barra de fome
-    Public Shared Health As Integer = 100       'barra de saude
-    Public Shared Energy As Integer = 95       'barra de saude
+    Private Shared Name As String            'nome do pet virtual
+    Private Shared Happy As Integer = 50     'barra de felicidade
+    Private Shared Hunger As Integer = 30    'barra de fome
+    Private Shared Health As Integer = 100   'barra de saude
+    Private Shared Energy As Integer = 95    'barra de saude
 
-    Private Sick As Integer = 30        'precisa se curar (cure)
-    Private Tired As Integer = 30        'precisa dormir (sleep)
-    Private Dirty As Integer = 30       'precisa se limpar (flush)
-    Private Sad As Integer = 30          'precisa brincar (play)
-    Private Sleeping As Boolean = False     'pode dormir ou acordar a qualquer momento (+health -hunger)
+    Private Shared Sick As Integer = 30            'precisa se curar (cure)
+    Private Shared Tired As Integer = 30           'precisa dormir (sleep)
+    Private Shared Dirty As Integer = 30           'precisa se limpar (flush)
+    Private Shared Sad As Integer = 30             'precisa brincar (play)
+    Private Shared Sleeping As Boolean = False     'pode dormir ou acordar a qualquer momento (+health -hunger)
 
     Private Dead As Boolean                 'recomeçar o pet
 
