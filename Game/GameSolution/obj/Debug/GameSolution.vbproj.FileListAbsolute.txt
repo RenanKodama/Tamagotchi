@@ -91,3 +91,4 @@ C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\obj\Debug\GameSolution.vbpro
 C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\obj\Debug\GameSolution.dll
 C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\obj\Debug\WebForms_Basic.xml
 C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\obj\Debug\GameSolution.pdb
+C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\bin\AjaxControlToolkit.dll
