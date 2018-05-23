@@ -1,8 +1,10 @@
 ﻿<%@Import Namespace="GameSolution"%>
 
 <script runat="server">
-    Dim person As New Personagem()
 
+
+    Dim person As New Personagem()
+    Dim aTimer As New System.Timers.Timer()
 
     Protected Sub ButtonFeed_Click(sender As Object, e As EventArgs)
         Dim aux_hunger As Integer = person.GetHunger()
@@ -98,30 +100,35 @@
         PanelStatus.Update()
     End Sub
 
+    Protected Sub InitiTime()
+        aTimer.Interval = 1000
+        AddHandler aTimer.Elapsed, AddressOf Timer_Tick
+        aTimer.Start()
+    End Sub
+
     Protected Sub Page_Load(sender As Object, e As EventArgs)
-
-
+        'InitiTime()
     End Sub
 
     Protected Sub TextBoxHappy_TextChanged(sender As Object, e As EventArgs)
-        BoxHappy.Text = person.GetHappy
+        BoxHappy.Text = person.GetHappy()
     End Sub
 
     Protected Sub TextBoxHunger_TextChanged(sender As Object, e As EventArgs)
-        BoxHunger.Text = person.GetHunger
+        BoxHunger.Text = person.GetHunger()
     End Sub
 
     Protected Sub TextBoxHealth_TextChanged(sender As Object, e As EventArgs)
-        BoxHealth.Text = person.GetHealth
+        BoxHealth.Text = person.GetHealth()
     End Sub
 
     Protected Sub TextBoxEnergy_TextChanged(sender As Object, e As EventArgs)
-        BoxEnergy.Text = person.GetEnergy
+        BoxEnergy.Text = person.GetEnergy()
     End Sub
 
-    Protected Sub Timer_Tick(ByVal sender As Object, ByVal e As EventArgs)
+    Protected Sub Timer_Tick()
         Dim aux_happy As Integer = person.GetHappy()
-        Dim aux_hunger As Integer = person.GetHunger
+        Dim aux_hunger As Integer = person.GetHunger()
         Dim aux_health As Integer = person.GetHealth()
         Dim aux_energy As Integer = person.GetEnergy()
 
@@ -130,10 +137,16 @@
         aux_health -= CInt(Math.Ceiling(Rnd() * 2)) + 1
         aux_energy -= CInt(Math.Ceiling(Rnd() * 2)) + 1
 
+
+        BoxHappy.Text = aux_happy
+
         person.SetHappy(aux_happy)
         person.SetHunger(aux_hunger)
         person.SetHealth(aux_health)
         person.SetEnergy(aux_energy)
+
+
+
         PanelStatus.Update()
     End Sub
 </script>
@@ -141,12 +154,11 @@
 
 
 
-
 <body style="height: 380px; width: 510px; text-align: center;">
     <form id="form1" runat="server">
-        <asp:Timer ID="Timer1" OnTick="Timer_Tick" runat="server" Interval="2000"/>
 
 
+        
         <asp:Panel ID="PanelActions" runat="server" style="position:absolute; top: 326px; left: 15px; width: 315px; height: 65px;">
             <asp:Button ID="Play"       runat="server" OnClick="ButtonPlay_Click"   style="position:absolute; top: 35px; height: 22px; width: 46px; left: 126px;" Text="Play" />
             <asp:Button ID="Cure"       runat="server" OnClick="ButtonCure_Click"   style="position:absolute; top: 35px; height: 22px; width: 46px; left: 63px;" Text="Cure" />
@@ -157,7 +169,9 @@
     
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
-        <asp:UpdatePanel ID="PanelStatus" runat="server" style="position:absolute; top: 320px; left: 334px; width: 179px;" UpdateMode="Conditional">
+
+        
+        <asp:UpdatePanel ID="PanelStatus" runat="server" OnLoad="InitiTime" style="position:absolute; top: 320px; left: 334px; width: 179px;" UpdateMode="Conditional" >
             <ContentTemplate>
                 <asp:Label ID="LabelHappy"      runat="server" Text="Happy" style="position:absolute; top: -9px; left: 5px; height: 2px; width: 1px;" Font-Size="Small"></asp:Label>
                 <asp:TextBox ID="BoxHappy"      runat="server" style="position:absolute; top: -12px; left: 54px; width: 32px;" OnLoad="TextBoxHappy_TextChanged"></asp:TextBox>    
