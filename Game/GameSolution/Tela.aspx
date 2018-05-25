@@ -1,6 +1,6 @@
 ﻿<%@Import Namespace="GameSolution"%>
 <%@Register Assembly="AjaxControlToolkit"  Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit"%>
-<%@Import Namespace="System.Drawing" %>
+<%@Import Namespace="System.Drawing"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,7 +11,6 @@
         </head>
 
         <body style="height: 380px; width: 510px; text-align: center;">
-  
             <form id="form1" runat="server">
                 <asp:Panel ID="PanelActions" runat="server" style="position:absolute; top: 326px; left: 15px; width: 315px; height: 65px;">
                     <asp:Button ID="Play"       runat="server" OnClick="ButtonPlay_Click"   style="position:absolute; top: 35px; height: 22px; width: 46px; left: 126px;" Text="Play" />
@@ -27,10 +26,17 @@
                 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
                 </asp:ScriptManagerProxy>
 
-                <asp:Panel ID="PanelImage" runat="server" style="position:absolute; top: 109px; left: 24px; height: 181px; width: 482px;">
-                </asp:Panel>
+                <asp:Panel ID="PanelImage" runat="server" style="position:absolute; top: 109px; left: 24px; height: 190px; width: 482px;">
+                    <asp:UpdatePanel ID="UpdatePanelImage" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:Timer ID="Timer2" runat="server" Interval="1000" ></asp:Timer>
 
+                            <asp:Image ID="Image1" runat="server" style="position:absolute; top: 7px; left: 113px; height: 175px; width: 177px;"/> 
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
                 
+               
 
                 <asp:UpdatePanel ID="PanelStatus" runat="server" style="position:absolute; top: 320px; left: 334px; width: 179px;" UpdateMode="Conditional" >
                     <ContentTemplate>
@@ -50,12 +56,12 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>    
 
-
         
 
             <script runat="server">
                 Dim person As New Personagem()
                 Dim aTimer As New System.Timers.Timer()
+                Dim ListImagesPerson As New List(Of String)()
 
                 Protected Sub ButtonFeed_Click(sender As Object, e As EventArgs)
                     If person.GetSleeping = False Then
@@ -155,19 +161,22 @@
                         PanelImage.BackColor = System.Drawing.Color.Yellow
                     Else
                         aux_sleep = True
-                        PanelImage.BackColor = System.Drawing.Color.Black
+                        PanelImage.BackColor = System.Drawing.Color.DarkGray
                     End If
 
                     person.SetSleeping(aux_sleep)
+                    SetStatus_PersonagemImage()
                     PanelStatus.Update()
                 End Sub
 
                 Protected Sub Page_Load(sender As Object, e As EventArgs)
                     If person.GetSleeping = False Then
-                        PanelImage.BackColor = System.Drawing.Color.DarkGray
+                        PanelImage.BackColor = System.Drawing.Color.Yellow
                     Else
-                        PanelImage.BackColor = System.Drawing.Color.Black
+                        PanelImage.BackColor = System.Drawing.Color.DarkGray
                     End If
+
+                    SetStatus_PersonagemImage()
                 End Sub
 
                 Protected Sub TextBoxHappy_TextChanged(sender As Object, e As EventArgs)
@@ -186,7 +195,103 @@
                     BoxEnergy.Text = person.GetEnergy()
                 End Sub
 
-                Protected Sub Timer_Tick(ByVal sender As Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+                Protected Sub VerifyConditions_Personagem()
+                    Dim aux_happy As Integer = person.GetHappy()
+                    Dim aux_hunger As Integer = person.GetHunger()
+                    Dim aux_health As Integer = person.GetHealth()
+                    Dim aux_energy As Integer = person.GetEnergy()
+                    Dim aux_sleeping As Boolean = person.GetSleeping()
+
+                    If aux_sleeping = False Then
+                        If aux_happy <= 25 Then
+                            aux_health -= 1
+                        End If
+
+                        If aux_hunger >= 85 Then
+                            aux_health -= 2
+                        End If
+
+                        If aux_energy <= 9 Then
+                            aux_health -= 1
+                        End If
+
+                        person.SetHealth(aux_health)
+                    End If
+
+                End Sub
+
+
+                Protected Sub SetStatus_PersonagemImage()
+                    Dim aux_happy As Integer = person.GetHappy()
+                    Dim aux_hunger As Integer = person.GetHunger()
+                    Dim aux_health As Integer = person.GetHealth()
+                    Dim aux_energy As Integer = person.GetEnergy()
+                    Dim aux_sleeping As Boolean = person.GetSleeping()
+
+                    If aux_health > 0 Then
+                        If aux_sleeping = False Then
+                            If aux_happy < 30 Or aux_hunger > 65 Or aux_health < 30 Or aux_energy < 30 Then
+                                If aux_health < 30 Then
+                                    ListImagesPerson.Add("~/GameImagens/emoticon-sick.png")
+                                    BoxHealth.BackColor = System.Drawing.Color.Red
+                                Else
+                                    BoxHealth.BackColor = System.Drawing.Color.White
+                                End If
+
+                                If aux_energy < 30 Then
+                                    ListImagesPerson.Add("~/GameImagens/emoticon-tired.png")
+                                    BoxEnergy.BackColor = System.Drawing.Color.Red
+                                Else
+                                    BoxEnergy.BackColor = System.Drawing.Color.White
+                                End If
+
+                                If aux_happy < 30 Then
+                                    ListImagesPerson.Add("~/GameImagens/emoticon-sad.png")
+                                    BoxHappy.BackColor = System.Drawing.Color.Red
+                                Else
+                                    BoxHappy.BackColor = System.Drawing.Color.White
+                                End If
+
+                                If aux_hunger > 65 Then
+                                    ListImagesPerson.Add("~/GameImagens/emoticon-hunger.png")
+                                    BoxHunger.BackColor = System.Drawing.Color.Red
+                                Else
+                                    BoxHunger.BackColor = System.Drawing.Color.White
+                                End If
+                            Else
+                                ListImagesPerson.Add("~/GameImagens/emoticon-happy.png")
+                            End If
+                        Else
+                            Image1.ImageUrl = "~/GameImagens/emoticon-sleeping.png"
+                        End If
+                    Else
+                        Image1.ImageUrl = "~/GameImagens/emoticon-dead.png"
+                    End If
+
+                    VerifyConditions_Personagem()
+                    UpdatePanelImage.Update()
+
+                End Sub
+
+
+                Protected Sub Timer_Tick2(ByVal sender As Object, ByVal e As System.EventArgs) Handles Timer2.Tick
+                    If ListImagesPerson.Count > 0 Then
+
+                        Dim rnd = New Random()
+                        Dim randomStatus = ListImagesPerson(rnd.Next(0, ListImagesPerson.Count))
+
+
+                        ListImagesPerson.Clear()
+
+
+                        Image1.ImageUrl = randomStatus
+                        UpdatePanelImage.Update()
+
+                    End If
+                End Sub
+
+
+                Protected Sub Timer_Tick1(ByVal sender As Object, ByVal e As System.EventArgs) Handles Timer1.Tick
                     Dim aux_happy As Integer = person.GetHappy()
                     Dim aux_hunger As Integer = person.GetHunger()
                     Dim aux_health As Integer = person.GetHealth()
@@ -198,10 +303,10 @@
                     aux_health -= 1
 
                     If aux_sleeping = True Then
-                        aux_energy += CInt(Math.Ceiling(Rnd() * 2)) + 1
-                        aux_happy -= CInt(Math.Ceiling(Rnd() * 2)) + 1
+                        aux_energy += 5
+                        aux_happy -= 1
                     Else
-                        aux_energy -= CInt(Math.Ceiling(Rnd() * 2)) + 1
+                        aux_energy -= 1
                     End If
 
                     If aux_happy < 0 Then
@@ -224,6 +329,8 @@
                     person.SetHunger(aux_hunger)
                     person.SetHealth(aux_health)
                     person.SetEnergy(aux_energy)
+
+                    SetStatus_PersonagemImage()
 
                     PanelStatus.Update()
                 End Sub

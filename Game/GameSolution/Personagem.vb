@@ -1,17 +1,16 @@
 ﻿Public Class Personagem
 
     Private Shared Name As String            'nome do pet virtual
-    Private Shared Happy As Integer = 50     'barra de felicidade
-    Private Shared Hunger As Integer = 30    'barra de fome
-    Private Shared Health As Integer = 100   'barra de saude
-    Private Shared Energy As Integer = 95    'barra de saude
+    Private Shared Happy As Integer = 20 '50     'barra de felicidade
+    Private Shared Hunger As Integer = 65 '30    'barra de fome
+    Private Shared Health As Integer = 90    'barra de saude
+    Private Shared Energy As Integer = 20 '95    'barra de saude
 
-    Private Shared Sick As Integer = 30            'precisa se curar (cure)
-    Private Shared Tired As Integer = 30           'precisa dormir (sleep)
-    Private Shared Dirty As Integer = 30           'precisa se limpar (flush)
-    Private Shared Sad As Integer = 30             'precisa brincar (play)
+    'Private Shared Sick As Integer = 30            'precisa se curar (cure)
+    'Private Shared Tired As Integer = 30           'precisa dormir (sleep)
+    'Private Shared Dirty As Integer = 30           'precisa se limpar (flush)
+    'Private Shared Sad As Integer = 30             'precisa brincar (play)
     Private Shared Sleeping As Boolean = False     'pode dormir ou acordar a qualquer momento (+health -hunger)
-
     Private Dead As Boolean                 'recomeçar o pet
 
 
@@ -51,38 +50,6 @@
 
     Public Function SetEnergy(ByRef value_energy)
         Energy = value_energy
-    End Function
-
-    Public Function GetSick()
-        Return Sick
-    End Function
-
-    Public Function SetSick(ByVal value_Sick)
-        Sick = value_Sick
-    End Function
-
-    Public Function GetTired()
-        Return Tired
-    End Function
-
-    Public Function SetTired(ByVal value_tired)
-        Tired = value_tired
-    End Function
-
-    Public Function GetDirty()
-        Return Dirty
-    End Function
-
-    Public Function SetDirty(ByVal value_dirty)
-        Dirty = value_dirty
-    End Function
-
-    Public Function GetSad()
-        Return Sad
-    End Function
-
-    Public Function SetSad(ByVal value_sad)
-        Sad = value_sad
     End Function
 
     Public Function GetSleeping()

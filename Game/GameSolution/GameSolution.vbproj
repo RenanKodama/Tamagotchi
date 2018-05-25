@@ -186,7 +186,6 @@
     </Compile>
     <Compile Include="Tela.aspx.vb">
       <DependentUpon>Tela.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +206,14 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <Content Include="GameImagens\emoticon-dead.png" />
+    <Content Include="GameImagens\emoticon-dirty.png" />
+    <Content Include="GameImagens\emoticon-happy.png" />
+    <Content Include="GameImagens\emoticon-hunger.png" />
+    <Content Include="GameImagens\emoticon-sad.png" />
+    <Content Include="GameImagens\emoticon-sick.png" />
+    <Content Include="GameImagens\emoticon-sleeping.png" />
+    <Content Include="GameImagens\emoticon-tired.png" />
     <Content Include="web.config" />
     <None Include="packages.config" />
     <None Include="web.Debug.config">
