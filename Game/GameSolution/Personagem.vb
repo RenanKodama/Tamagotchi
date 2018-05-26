@@ -1,17 +1,12 @@
 ﻿Public Class Personagem
 
-    Private Shared Name As String            'nome do pet virtual
-    Private Shared Happy As Integer = 20 '50     'barra de felicidade
-    Private Shared Hunger As Integer = 65 '30    'barra de fome
-    Private Shared Health As Integer = 90    'barra de saude
-    Private Shared Energy As Integer = 20 '95    'barra de saude
-
-    'Private Shared Sick As Integer = 30            'precisa se curar (cure)
-    'Private Shared Tired As Integer = 30           'precisa dormir (sleep)
-    'Private Shared Dirty As Integer = 30           'precisa se limpar (flush)
-    'Private Shared Sad As Integer = 30             'precisa brincar (play)
-    Private Shared Sleeping As Boolean = False     'pode dormir ou acordar a qualquer momento (+health -hunger)
-    Private Dead As Boolean                 'recomeçar o pet
+    Private Shared Name As String                   'nome do pet virtual
+    Private Shared Happy As Integer = 80            'barra de felicidade
+    Private Shared Hunger As Integer = 5           'barra de fome
+    Private Shared Health As Integer = 90           'barra de saude
+    Private Shared Energy As Integer = 90           'barra de saude
+    Private Shared Toilet As Integer = 5           'barra de sujeira
+    Private Shared Sleeping As Boolean = False      'pode dormir ou acordar a qualquer momento
 
 
 
@@ -60,11 +55,11 @@
         Sleeping = value_sleeping
     End Function
 
-    Public Function GetDead()
-        Return Dead
+    Public Function GetToilet()
+        Return Toilet
     End Function
 
-    Public Function SetDead(ByVal value_dead)
-        Dead = value_dead
+    Public Function SetToilet(ByVal value_toilet)
+        Toilet = value_toilet
     End Function
 End Class

@@ -31,6 +31,8 @@
                         <ContentTemplate>
                             <asp:Timer ID="Timer2" runat="server" Interval="1000" ></asp:Timer>
 
+                            
+
                             <asp:Image ID="Image1" runat="server" style="position:absolute; top: 7px; left: 113px; height: 175px; width: 177px;"/> 
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -53,6 +55,10 @@
             
                         <asp:Label ID="LabelEnergy"     runat="server" Text="Energy" style="position:absolute; top: -9px; left: 100px; height: 2px; width: 1px;" Font-Size="Small"></asp:Label>
                         <asp:TextBox ID="BoxEnergy"     runat="server" style="position:absolute; top: -12px; left: 148px; width: 32px;" OnLoad="TextBoxEnergy_TextChanged"></asp:TextBox>    
+                    
+                        <asp:Label ID="LabelToilet"     runat="server" Text="Toilet" style="position:absolute; top: 23px; left: 100px;" Font-Size="Small"></asp:Label>
+                        <asp:TextBox ID="BoxToilet"     runat="server" style="position:absolute; top: 19px; left: 148px; width: 32px;" OnLoad="TextBoxToilet_TextChanged"></asp:TextBox>    
+
                     </ContentTemplate>
                 </asp:UpdatePanel>    
 
@@ -67,19 +73,21 @@
                     If person.GetSleeping = False Then
                         Dim aux_hunger As Integer = person.GetHunger()
                         Dim aux_energy As Integer = person.GetEnergy()
+                        Dim aux_health As Integer = person.GetHealth()
 
                         aux_hunger -= CInt(Math.Ceiling(Rnd() * 10)) + 1
                         aux_energy -= CInt(Math.Ceiling(Rnd() * 25)) + 1
 
-
                         If aux_hunger < 0 Then
                             aux_hunger = 0
+                            aux_health -= 3
                         End If
 
                         If aux_energy < 1 Then
                             aux_energy = 0
                         End If
 
+                        person.SetHealth(aux_health)
                         person.SetHunger(aux_hunger)
                         person.SetEnergy(aux_energy)
 
@@ -91,20 +99,37 @@
                     If person.GetSleeping = False Then
                         Dim aux_health As Integer = person.GetHealth()
                         Dim aux_energy As Integer = person.GetEnergy()
+                        Dim aux_toilet As Integer = person.GetToilet()
 
-                        aux_health += CInt(Math.Ceiling(Rnd() * 10)) + 1
-                        aux_energy -= CInt(Math.Ceiling(Rnd() * 25)) + 1
+                        aux_energy -= CInt(Math.Ceiling(Rnd() * 10)) + 1
 
-                        If aux_health > 100 Then
-                            aux_health = 100
-                        End If
+
 
                         If aux_energy < 1 Then
                             aux_energy = 0
                         End If
 
+                        If aux_toilet < 10 Then
+                            aux_toilet = 0
+                            aux_health -= 9S
+                        Else
+                            aux_toilet -= CInt(Math.Ceiling(Rnd() * 60)) + 50
+                            aux_health += 2
+
+                            If aux_toilet < 0 Then
+                                aux_toilet = 0
+                            End If
+
+                            If aux_health > 100 Then
+                                aux_health = 100
+                            End If
+
+
+                        End If
+
                         person.SetEnergy(aux_energy)
                         person.SetHealth(aux_health)
+                        person.SetToilet(aux_toilet)
                         PanelStatus.Update()
                     End If
                 End Sub
@@ -114,13 +139,17 @@
                         Dim aux_happy As Integer = person.GetHappy()
                         Dim aux_energy As Integer = person.GetEnergy()
                         Dim aux_hunger As Integer = person.GetHunger()
+                        Dim aux_toilet As Integer = person.GetToilet()
+                        Dim aux_health As Integer = person.GetHealth()
 
                         aux_happy += CInt(Math.Ceiling(Rnd() * 10)) + 1
-                        aux_energy -= CInt(Math.Ceiling(Rnd() * 25)) + 1
+                        aux_energy -= CInt(Math.Ceiling(Rnd() * 10)) + 1
                         aux_hunger += CInt(Math.Ceiling(Rnd() * 10)) + 1
+                        aux_toilet += CInt(Math.Ceiling(Rnd() * 10)) + 1
 
                         If aux_happy > 100 Then
                             aux_happy = 100
+                            aux_health -= 3
                         End If
 
                         If aux_energy < 0 Then
@@ -131,9 +160,11 @@
                             aux_hunger = 100
                         End If
 
+                        person.SetHealth(aux_health)
                         person.SetHappy(aux_happy)
                         person.SetEnergy(aux_energy)
                         person.SetHunger(aux_hunger)
+                        person.SetToilet(aux_toilet)
                         PanelStatus.Update()
                     End If
                 End Sub
@@ -159,9 +190,11 @@
                     If aux_sleep = True Then
                         aux_sleep = False
                         PanelImage.BackColor = System.Drawing.Color.Yellow
+                        Image1.ImageUrl = "~/GameImagens/emoticon-happy.png"
                     Else
                         aux_sleep = True
                         PanelImage.BackColor = System.Drawing.Color.DarkGray
+                        Image1.ImageUrl = "~/GameImagens/emoticon-sleeping.png"
                     End If
 
                     person.SetSleeping(aux_sleep)
@@ -195,11 +228,16 @@
                     BoxEnergy.Text = person.GetEnergy()
                 End Sub
 
+                Protected Sub TextBoxToilet_TextChanged(sender As Object, e As EventArgs)
+                    BoxToilet.Text = person.GetToilet()
+                End Sub
+
                 Protected Sub VerifyConditions_Personagem()
                     Dim aux_happy As Integer = person.GetHappy()
                     Dim aux_hunger As Integer = person.GetHunger()
                     Dim aux_health As Integer = person.GetHealth()
                     Dim aux_energy As Integer = person.GetEnergy()
+                    Dim aux_toilet As Integer = person.GetToilet()
                     Dim aux_sleeping As Boolean = person.GetSleeping()
 
                     If aux_sleeping = False Then
@@ -215,6 +253,10 @@
                             aux_health -= 1
                         End If
 
+                        If aux_toilet >= 85 Then
+                            aux_health -= 1
+                        End If
+
                         person.SetHealth(aux_health)
                     End If
 
@@ -226,11 +268,13 @@
                     Dim aux_hunger As Integer = person.GetHunger()
                     Dim aux_health As Integer = person.GetHealth()
                     Dim aux_energy As Integer = person.GetEnergy()
+                    Dim aux_toilet As Integer = person.GetToilet()
                     Dim aux_sleeping As Boolean = person.GetSleeping()
 
                     If aux_health > 0 Then
                         If aux_sleeping = False Then
-                            If aux_happy < 30 Or aux_hunger > 65 Or aux_health < 30 Or aux_energy < 30 Then
+
+                            If aux_happy < 30 Or aux_hunger > 75 Or aux_health < 30 Or aux_energy < 30 Or aux_toilet > 75 Then
                                 If aux_health < 30 Then
                                     ListImagesPerson.Add("~/GameImagens/emoticon-sick.png")
                                     BoxHealth.BackColor = System.Drawing.Color.Red
@@ -252,17 +296,22 @@
                                     BoxHappy.BackColor = System.Drawing.Color.White
                                 End If
 
-                                If aux_hunger > 65 Then
+                                If aux_hunger > 75 Then
                                     ListImagesPerson.Add("~/GameImagens/emoticon-hunger.png")
                                     BoxHunger.BackColor = System.Drawing.Color.Red
                                 Else
                                     BoxHunger.BackColor = System.Drawing.Color.White
                                 End If
+
+                                If aux_toilet > 75 Then
+                                    ListImagesPerson.Add("~/GameImagens/emoticon-dirty.png")
+                                    BoxToilet.BackColor = System.Drawing.Color.Red
+                                Else
+                                    BoxToilet.BackColor = System.Drawing.Color.White
+                                End If
                             Else
                                 ListImagesPerson.Add("~/GameImagens/emoticon-happy.png")
                             End If
-                        Else
-                            Image1.ImageUrl = "~/GameImagens/emoticon-sleeping.png"
                         End If
                     Else
                         Image1.ImageUrl = "~/GameImagens/emoticon-dead.png"
@@ -286,7 +335,6 @@
 
                         Image1.ImageUrl = randomStatus
                         UpdatePanelImage.Update()
-
                     End If
                 End Sub
 
@@ -296,14 +344,17 @@
                     Dim aux_hunger As Integer = person.GetHunger()
                     Dim aux_health As Integer = person.GetHealth()
                     Dim aux_energy As Integer = person.GetEnergy()
+                    Dim aux_toilet As Integer = person.GetToilet()
                     Dim aux_sleeping As Boolean = person.GetSleeping()
 
                     aux_happy -= 1
                     aux_hunger += 1
                     aux_health -= 1
+                    aux_toilet += 1
 
                     If aux_sleeping = True Then
                         aux_energy += 5
+                        aux_health += 3
                         aux_happy -= 1
                     Else
                         aux_energy -= 1
@@ -325,10 +376,15 @@
                         aux_energy = 0
                     End If
 
+                    If aux_toilet > 100 Then
+                        aux_toilet = 100
+                    End If
+
                     person.SetHappy(aux_happy)
                     person.SetHunger(aux_hunger)
                     person.SetHealth(aux_health)
                     person.SetEnergy(aux_energy)
+                    person.SetToilet(aux_toilet)
 
                     SetStatus_PersonagemImage()
 
