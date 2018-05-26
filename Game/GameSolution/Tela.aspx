@@ -111,7 +111,7 @@
 
                         If aux_toilet < 10 Then
                             aux_toilet = 0
-                            aux_health -= 9S
+                            aux_health -= 9
                         Else
                             aux_toilet -= CInt(Math.Ceiling(Rnd() * 60)) + 50
                             aux_health += 2
