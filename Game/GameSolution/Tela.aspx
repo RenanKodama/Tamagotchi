@@ -31,14 +31,11 @@
                         <ContentTemplate>
                             <asp:Timer ID="Timer2" runat="server" Interval="1000" ></asp:Timer>
 
-                            
-
                             <asp:Image ID="Image1" runat="server" style="position:absolute; top: 7px; left: 113px; height: 175px; width: 177px;"/> 
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </asp:Panel>
                 
-               
 
                 <asp:UpdatePanel ID="PanelStatus" runat="server" style="position:absolute; top: 320px; left: 334px; width: 179px;" UpdateMode="Conditional" >
                     <ContentTemplate>
@@ -68,6 +65,51 @@
                 Dim person As New Personagem()
                 Dim aTimer As New System.Timers.Timer()
                 Dim ListImagesPerson As New List(Of String)()
+
+                'Dim cntx = New EfContext()
+
+                Protected Sub Initi()
+                    ' Using Contexto = New EfContext()
+
+                    'If Contexto.Database.CreateIfNotExists Then
+                    ' Contexto.Database.Create()
+                    ' End If
+
+                    'DELETE
+                    'For Each C In Contexto.Player
+                    ' Contexto.Player.Remove(C)
+                    ' Next
+                    ' Contexto.SaveChanges()
+
+                    'INSERT
+                    Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
+                        Conn.Open()
+
+                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                            Dim aux As String = "meu pau"
+
+                            'txt_nomeemp.Text.Replace("'", "''")
+                            Comm.CommandText = "INSERT INTO Jogadores(player_name)  VALUES ('" + aux.ToString + "')"
+                            Comm.ExecuteNonQuery()
+
+
+                            'Contexto.Jogadores.Add(New Jogadores() With {.player_name = "Novo Cliente EF"})
+                            'Contexto.SaveChanges()
+
+                            ' UPDATE
+                            '                        Dim Player = Contexto.Player.First()
+                            '                        Player.Nome = "Novo Cliente EF Alterado"
+                            '                        Contexto.SaveChanges()
+
+                            ' SELECT
+                            'For Each C In Contexto.Jogadores
+                            ' Console.WriteLine("Nome do Cliente: {0}", C.player_name
+                            '            )
+                            ' Next
+                        End Using
+                    End Using
+                End Sub
+
 
                 Protected Sub ButtonFeed_Click(sender As Object, e As EventArgs)
                     If person.GetSleeping = False Then
@@ -209,7 +251,11 @@
                         PanelImage.BackColor = System.Drawing.Color.DarkGray
                     End If
 
+
+
                     SetStatus_PersonagemImage()
+
+                    Initi()
                 End Sub
 
                 Protected Sub TextBoxHappy_TextChanged(sender As Object, e As EventArgs)
@@ -273,8 +319,8 @@
 
                     If aux_health > 0 Then
                         If aux_sleeping = False Then
-
                             If aux_happy < 30 Or aux_hunger > 75 Or aux_health < 30 Or aux_energy < 30 Or aux_toilet > 75 Then
+
                                 If aux_health < 30 Then
                                     ListImagesPerson.Add("~/GameImagens/emoticon-sick.png")
                                     BoxHealth.BackColor = System.Drawing.Color.Red
@@ -390,6 +436,7 @@
 
                     PanelStatus.Update()
                 End Sub
+
             </script>
         </form>
     </body>
