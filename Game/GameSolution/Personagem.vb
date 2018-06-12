@@ -8,7 +8,9 @@
     Private Shared Toilet As Integer = 5           'barra de sujeira
     Private Shared Sleeping As Boolean = False      'pode dormir ou acordar a qualquer momento
 
-
+    Public Property StartTime As DateTime           'quando iniciado
+    Public Property PausetTime As DateTime          'quando atualizado
+    Public Property EndGameTime As DateTime         'quando pet isDead
 
     'funçoes de getters e setters
     Public Function GetName()

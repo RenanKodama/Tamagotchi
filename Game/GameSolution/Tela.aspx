@@ -72,12 +72,7 @@
                     Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
                         Conn.Open()
 
-                        'SELECT
-                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
-                            Dim aux As String = "meu pau"
-                            Comm.CommandText = "INSERT INTO Jogadores(player_name)  VALUES ('" + aux.ToString + "')"
-                            Comm.ExecuteNonQuery()
-                        End Using
+
 
                         ' DELETE
                         Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
@@ -85,12 +80,27 @@
                             Comm.ExecuteNonQuery()
                         End Using
 
-                        'SELECT
+
+                        'INSERT
                         Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
                             Dim aux As String = "meu pau"
                             Comm.CommandText = "INSERT INTO Jogadores(player_name)  VALUES ('" + aux.ToString + "')"
                             Comm.ExecuteNonQuery()
                         End Using
+
+
+                        ' SELECT
+                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                            Comm.CommandText = "SELECT * FROM Jogadores"
+
+                            Console.WriteLine("DataReader:")
+                            Using Reader = Comm.ExecuteReader()
+                                While Reader.Read()
+                                    Console.WriteLine("Nome do Cliente: {0}", Reader("player_name"))
+                                End While
+                            End Using
+                        End Using
+
 
                         ' UPDATE
                         Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
@@ -380,6 +390,9 @@
 
                         Image1.ImageUrl = randomStatus
                         UpdatePanelImage.Update()
+
+
+
                     End If
                 End Sub
 
