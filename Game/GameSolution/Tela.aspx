@@ -69,44 +69,43 @@
                 'Dim cntx = New EfContext()
 
                 Protected Sub Initi()
-                    ' Using Contexto = New EfContext()
-
-                    'If Contexto.Database.CreateIfNotExists Then
-                    ' Contexto.Database.Create()
-                    ' End If
-
-                    'DELETE
-                    'For Each C In Contexto.Player
-                    ' Contexto.Player.Remove(C)
-                    ' Next
-                    ' Contexto.SaveChanges()
-
-                    'INSERT
                     Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
                         Conn.Open()
 
+                        'SELECT
                         Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
                             Dim aux As String = "meu pau"
-
-                            'txt_nomeemp.Text.Replace("'", "''")
                             Comm.CommandText = "INSERT INTO Jogadores(player_name)  VALUES ('" + aux.ToString + "')"
                             Comm.ExecuteNonQuery()
-
-
-                            'Contexto.Jogadores.Add(New Jogadores() With {.player_name = "Novo Cliente EF"})
-                            'Contexto.SaveChanges()
-
-                            ' UPDATE
-                            '                        Dim Player = Contexto.Player.First()
-                            '                        Player.Nome = "Novo Cliente EF Alterado"
-                            '                        Contexto.SaveChanges()
-
-                            ' SELECT
-                            'For Each C In Contexto.Jogadores
-                            ' Console.WriteLine("Nome do Cliente: {0}", C.player_name
-                            '            )
-                            ' Next
                         End Using
+
+                        ' DELETE
+                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                            Comm.CommandText = "DELETE FROM Jogadores"
+                            Comm.ExecuteNonQuery()
+                        End Using
+
+                        'SELECT
+                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                            Dim aux As String = "meu pau"
+                            Comm.CommandText = "INSERT INTO Jogadores(player_name)  VALUES ('" + aux.ToString + "')"
+                            Comm.ExecuteNonQuery()
+                        End Using
+
+                        ' UPDATE
+                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                            Comm.CommandText = "SELECT MAX(player_id) FROM Jogadores"
+                            Dim PlayerId = Comm.ExecuteScalar()
+                            If (PlayerId IsNot Nothing And PlayerId IsNot DBNull.Value) Then
+                                Comm.CommandText = "UPDATE Jogadores SET player_name = 'Novo Jogadores Alterado' WHERE player_id = @Id"
+                                Comm.Parameters.AddWithValue("@Id", PlayerId)
+                                Comm.ExecuteNonQuery()
+                            End If
+                        End Using
+
+
+
+
                     End Using
                 End Sub
 
