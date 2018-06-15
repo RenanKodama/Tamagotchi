@@ -21,21 +21,24 @@
             Dim aux As String = ""
             Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\Clodoaldo Basaglia\Documents\LinguagemDeProgramação\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
                 Conn.Open()
-                MsgBox("Abriu conexão", MsgBoxStyle.OkOnly, "Valido")
                 Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
-                    Comm.CommandText = "select * from Jogadores"
-                    'Comm.ExecuteNonQuery()
-                    MsgBox("Chegou no reader", MsgBoxStyle.OkOnly, "Valido")
-                    Using Reader = Comm.ExecuteReader
-                        MsgBox("entrou no reader", MsgBoxStyle.OkOnly, "Valido")
+                    Comm.CommandText = "SELECT * FROM Jogadores"
+                    Using Reader = Comm.ExecuteReader()
                         While Reader.Read()
-                            MsgBox("while", MsgBoxStyle.OkOnly, "Valido")
-                            aux = ("Nome do Cliente: {0}" + Reader("player_name"))
-                            MsgBox(aux, MsgBoxStyle.OkOnly, "oi")
+                            aux = Reader("player_name")
+                            MsgBox(aux, MsgBoxStyle.OkOnly, "Valido")
                         End While
-
                     End Using
+
                 End Using
+
+                '                MsgBox("Abriu conexão", MsgBoxStyle.OkOnly, "Valido")
+                'Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                '    Comm.CommandText = "select * from Jogadores"
+                '    Comm.ExecuteNonQuery()
+                '    MsgBox("Chegou no reader", MsgBoxStyle.OkOnly, "Valido")
+
+                'End Using
             End Using
 
             If TextBox1.Text = "rfb" And TextBox2.Text = "reflection" Then
