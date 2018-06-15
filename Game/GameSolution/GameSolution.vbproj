@@ -202,6 +202,13 @@
   <ItemGroup>
     <Compile Include="EfContext.vb" />
     <Compile Include="Jogadores.vb" />
+    <Compile Include="Login.aspx.designer.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -256,6 +263,7 @@
     <Content Include="GameImagens\emoticon-sick.png" />
     <Content Include="GameImagens\emoticon-sleeping.png" />
     <Content Include="GameImagens\emoticon-tired.png" />
+    <Content Include="Login.aspx" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
