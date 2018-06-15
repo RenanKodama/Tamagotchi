@@ -69,49 +69,50 @@
                 'Dim cntx = New EfContext()
 
                 Protected Sub Initi()
-                    Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
+                    'Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
+                    Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\Clodoaldo Basaglia\Documents\LinguagemDeProgramação\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
                         Conn.Open()
 
 
 
                         ' DELETE
-                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
-                            Comm.CommandText = "DELETE FROM Jogadores"
-                            Comm.ExecuteNonQuery()
-                        End Using
+                        '  Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                        'Comm.CommandText = "DELETE FROM Jogadores"
+                        '     Comm.ExecuteNonQuery()
+                        '  End Using
 
 
                         'INSERT
-                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
-                            Dim aux As String = "meu pau"
-                            Comm.CommandText = "INSERT INTO Jogadores(player_name)  VALUES ('" + aux.ToString + "')"
-                            Comm.ExecuteNonQuery()
-                        End Using
+                        '  Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                        'Dim aux As String = "meu pau"
+                        'Comm.CommandText = "INSERT INTO Jogadores(player_name)  VALUES ('" + aux.ToString + "')"
+                        'Comm.ExecuteNonQuery()
+                        'End Using
 
 
                         ' SELECT
-                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
-                            Comm.CommandText = "SELECT * FROM Jogadores"
+                        ' Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                        '   Comm.CommandText = "SELECT * FROM Jogadores"
 
-                            Console.WriteLine("DataReader:")
-                            Using Reader = Comm.ExecuteReader()
-                                While Reader.Read()
-                                    Console.WriteLine("Nome do Cliente: {0}", Reader("player_name"))
-                                End While
-                            End Using
-                        End Using
+                        'Console.WriteLine("DataReader:")
+                        'Using Reader = Comm.ExecuteReader()
+                        'While Reader.Read()
+                        'Console.WriteLine("Nome do Cliente: {0}", Reader("player_name"))
+                        'End While
+                        'End Using
+                        'End Using
 
 
                         ' UPDATE
-                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
-                            Comm.CommandText = "SELECT MAX(player_id) FROM Jogadores"
-                            Dim PlayerId = Comm.ExecuteScalar()
-                            If (PlayerId IsNot Nothing And PlayerId IsNot DBNull.Value) Then
-                                Comm.CommandText = "UPDATE Jogadores SET player_name = 'Novo Jogadores Alterado' WHERE player_id = @Id"
-                                Comm.Parameters.AddWithValue("@Id", PlayerId)
-                                Comm.ExecuteNonQuery()
-                            End If
-                        End Using
+                        'Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                        '    Comm.CommandText = "SELECT MAX(player_id) FROM Jogadores"
+                        '    Dim PlayerId = Comm.ExecuteScalar()
+                        '    If (PlayerId IsNot Nothing And PlayerId IsNot DBNull.Value) Then
+                        '        Comm.CommandText = "UPDATE Jogadores SET player_name = 'Novo Jogadores Alterado' WHERE player_id = @Id"
+                        '        Comm.Parameters.AddWithValue("@Id", PlayerId)
+                        '        Comm.ExecuteNonQuery()
+                        '    End If
+                        'End Using
 
 
 
