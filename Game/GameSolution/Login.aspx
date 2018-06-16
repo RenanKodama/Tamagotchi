@@ -23,10 +23,12 @@
                 Conn.Open()
                 Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
                     Comm.CommandText = "SELECT * FROM Jogadores"
+                    Comm.ExecuteScalar()
+
+                    Console.WriteLine("DataReader:")
                     Using Reader = Comm.ExecuteReader()
                         While Reader.Read()
-                            aux = Reader("player_name")
-                            MsgBox(aux, MsgBoxStyle.OkOnly, "Valido")
+                            Console.WriteLine("Nome do Cliente: {0}", Reader("Nome"))
                         End While
                     End Using
 
