@@ -51,7 +51,7 @@
                             footerTableCell1.Text = Reader("pet_id").ToString
                             footerTableCell2.Text = Reader("pet_name")
                             Session.Add("pet_Id", Reader("pet_id").ToString)
-                            footerTableCell3.Text = "<a href=Tela.aspx>Jogar</a>"
+                            footerTableCell3.Text = "<a href=Tela.aspx?id=" + Reader("pet_id").ToString + ">Jogar</a>"
                             footerRow.Cells.Add(footerTableCell1)
                             footerRow.Cells.Add(footerTableCell2)
                             footerRow.Cells.Add(footerTableCell3)
