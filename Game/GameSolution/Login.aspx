@@ -28,26 +28,20 @@
                     Console.WriteLine("DataReader:")
                     Using Reader = Comm.ExecuteReader()
                         While Reader.Read()
-                            Console.WriteLine("Nome do Cliente: {0}", Reader("Nome"))
+                            Console.WriteLine(Reader("player_name"))
+                            ' MsgBox(Reader("player_name"), MsgBoxStyle.OkOnly, "Valido")
+                            If TextBox1.Text = Reader("player_login") And TextBox2.Text = Reader("player_senha") Then
+                                'MsgBox("Logado", MsgBoxStyle.OkOnly, "Valido")
+                                Response.Redirect("ListaDePets.aspx")
+                                Session("user") = Reader("player_name")
+
+                            Else
+                                MsgBox("Desculpe, Seu login/senha pode estar incorreto", MsgBoxStyle.OkOnly, "Invalido")
+                            End If
                         End While
                     End Using
-
                 End Using
-
-                '                MsgBox("Abriu conexão", MsgBoxStyle.OkOnly, "Valido")
-                'Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
-                '    Comm.CommandText = "select * from Jogadores"
-                '    Comm.ExecuteNonQuery()
-                '    MsgBox("Chegou no reader", MsgBoxStyle.OkOnly, "Valido")
-
-                'End Using
             End Using
-
-            If TextBox1.Text = "rfb" And TextBox2.Text = "reflection" Then
-                MsgBox("Logado", MsgBoxStyle.OkOnly, "Valido")
-            Else
-                MsgBox("Sorry, username or password not found", MsgBoxStyle.OkOnly, "Invalid")
-            End If
         End Sub
     </script>
 </html>
