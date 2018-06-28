@@ -11,7 +11,11 @@
         </head>
 
         <body style="height: 380px; width: 510px; text-align: center;">
+           
             <form id="form1" runat="server">
+                 <div>
+                <asp:Button ID="Button2" runat="server" Text="Voltar" />
+            </div>
                 <asp:Panel ID="PanelActions" runat="server" style="position:absolute; top: 326px; left: 15px; width: 315px; height: 65px;">
                     <asp:Button ID="Play"       runat="server" OnClick="ButtonPlay_Click"   style="position:absolute; top: 35px; height: 22px; width: 46px; left: 126px;" Text="Play" />
                     <asp:Button ID="Cure"       runat="server" OnClick="ButtonCure_Click"   style="position:absolute; top: 35px; height: 22px; width: 46px; left: 63px;" Text="Cure" />
@@ -485,7 +489,10 @@
 
                     PanelStatus.Update()
                 End Sub
+                Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+                    Response.Redirect("ListaDePets.aspx")
 
+                End Sub
             </script>
         </form>
     </body>
