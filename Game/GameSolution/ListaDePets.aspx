@@ -12,6 +12,9 @@
         <div>
             <asp:Button ID="Button1" runat="server" Text="Listar" />
         </div>
+        <div>
+            <asp:Button ID="Button2" runat="server" Text="Criar um novo Pet" />
+        </div>
         <asp:Table ID="Table1" runat="server" Width="293px">
             
         </asp:Table>
@@ -61,6 +64,9 @@
                     End Using
                 End Using
             End Using
+        End Sub
+        Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+            Response.Redirect("CadastrarPet.aspx?id=" + Session("id").ToString)
         End Sub
     </script>
 </html>

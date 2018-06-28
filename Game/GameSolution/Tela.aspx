@@ -299,6 +299,21 @@
                     Dim aux_energy As Integer = person.GetEnergy()
                     Dim aux_toilet As Integer = person.GetToilet()
                     Dim aux_sleeping As Boolean = person.GetSleeping()
+                    'UPDATE NA TUPLA DO PERSONAGEM
+                    Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\Clodoaldo Basaglia\Documents\LinguagemDeProgramação\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
+                        Conn.Open()
+                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                            Comm.CommandText = "UPDATE Pet SET pet_energy=@energy,pet_happy=@happy,pet_health=@health,pet_hunger=@hunger,pet_sleeping=@sleeping,pet_toilet=@toilet WHERE pet_id=@id"
+                            Comm.Parameters.AddWithValue("@id", Request.QueryString("id").ToString)
+                            Comm.Parameters.AddWithValue("@energy", aux_energy)
+                            Comm.Parameters.AddWithValue("@happy", aux_happy)
+                            Comm.Parameters.AddWithValue("@health", aux_health)
+                            Comm.Parameters.AddWithValue("@hunger", aux_hunger)
+                            Comm.Parameters.AddWithValue("@sleeping", aux_sleeping)
+                            Comm.Parameters.AddWithValue("@toilet", aux_toilet)
+                            Comm.ExecuteScalar()
+                        End Using
+                    End Using
 
                     If aux_sleeping = False Then
                         If aux_happy <= 25 Then

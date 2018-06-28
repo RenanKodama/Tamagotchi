@@ -200,6 +200,20 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CadastrarPet.aspx.designer.vb">
+      <DependentUpon>CadastrarPet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CadastrarPet.aspx.vb">
+      <DependentUpon>CadastrarPet.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="CadastrarUser.aspx.designer.vb">
+      <DependentUpon>CadastrarUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CadastrarUser.aspx.vb">
+      <DependentUpon>CadastrarUser.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="EfContext.vb" />
     <Compile Include="Jogadores.vb" />
     <Compile Include="ListaDePets.aspx.designer.vb">
@@ -262,6 +276,8 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <Content Include="CadastrarPet.aspx" />
+    <Content Include="CadastrarUser.aspx" />
     <Content Include="GameImagens\emoticon-dead.png" />
     <Content Include="GameImagens\emoticon-dirty.png" />
     <Content Include="GameImagens\emoticon-happy.png" />

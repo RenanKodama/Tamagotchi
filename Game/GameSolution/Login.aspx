@@ -14,6 +14,10 @@
             <asp:Label ID="Label2" runat="server" Text="Senha"></asp:Label><asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
             <asp:Button ID="Button1" runat="server" Text="Entrar" />
         </div>
+        <div>
+            Ainda não é cadastrado? Clique Aqui!
+            <asp:Button ID="Button2" runat="server" Text="Cadastrar" />
+        </div>
     </form>
 </body>
     <script runat="server">
@@ -31,12 +35,16 @@
                                 Session.Add("id", Reader("player_id"))
                                 Response.Redirect("ListaDePets.aspx")
                             Else
-                                MsgBox("Desculpe, Seu login/senha pode estar incorreto", MsgBoxStyle.OkOnly, "Invalido")
+                                'nada
                             End If
                         End While
+                        MsgBox("Desculpe, Seu login/senha pode estar incorreto", MsgBoxStyle.OkOnly, "Invalido")
                     End Using
                 End Using
             End Using
+        End Sub
+        Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+            Response.Redirect("CadastrarUser.aspx")
         End Sub
     </script>
 </html>
