@@ -146,6 +146,7 @@
 
                         PanelStatus.Update()
                     End If
+
                 End Sub
 
                 Protected Sub ButtonFlush_Click(sender As Object, e As EventArgs)
@@ -257,23 +258,7 @@
 
                 Protected Sub Page_Load(sender As Object, e As EventArgs)
                     'MsgBox("ID da query" + Request.QueryString("id").ToString, MsgBoxStyle.OkOnly, "Invalido")
-                    Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\Clodoaldo Basaglia\Documents\LinguagemDeProgramação\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
-                        Conn.Open()
-                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
-                            Comm.CommandText = "SELECT * FROM Pet WHERE pet_id=" + Request.QueryString("id").ToString
-                            Comm.ExecuteScalar()
-                            Using Reader = Comm.ExecuteReader()
-                                While Reader.Read()
-                                    person.SetEnergy(Reader("pet_energy"))
-                                    person.SetHappy(Reader("pet_happy"))
-                                    person.SetHealth(Reader("pet_health"))
-                                    person.SetHunger(Reader("pet_hunger"))
-                                    person.SetSleeping(Reader("pet_sleeping"))
-                                    person.SetToilet(Reader("pet_toilet"))
-                                End While
-                            End Using
-                        End Using
-                    End Using
+
                     If person.GetSleeping = False Then
                         PanelImage.BackColor = System.Drawing.Color.Yellow
                     Else
@@ -418,6 +403,23 @@
 
 
                 Protected Sub Timer_Tick1(ByVal sender As Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+                    Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\Clodoaldo Basaglia\Documents\LinguagemDeProgramação\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
+                        Conn.Open()
+                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                            Comm.CommandText = "SELECT * FROM Pet WHERE pet_id=" + Request.QueryString("id").ToString
+                            Comm.ExecuteScalar()
+                            Using Reader = Comm.ExecuteReader()
+                                While Reader.Read()
+                                    person.SetEnergy(Reader("pet_energy"))
+                                    person.SetHappy(Reader("pet_happy"))
+                                    person.SetHealth(Reader("pet_health"))
+                                    person.SetHunger(Reader("pet_hunger"))
+                                    person.SetSleeping(Reader("pet_sleeping"))
+                                    person.SetToilet(Reader("pet_toilet"))
+                                End While
+                            End Using
+                        End Using
+                    End Using
                     Dim aux_happy As Integer = person.GetHappy()
                     Dim aux_hunger As Integer = person.GetHunger()
                     Dim aux_health As Integer = person.GetHealth()
