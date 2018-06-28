@@ -24,17 +24,12 @@
                 Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
                     Comm.CommandText = "SELECT * FROM Jogadores"
                     Comm.ExecuteScalar()
-
-                    Console.WriteLine("DataReader:")
                     Using Reader = Comm.ExecuteReader()
                         While Reader.Read()
-                            Console.WriteLine(Reader("player_name"))
-                            ' MsgBox(Reader("player_name"), MsgBoxStyle.OkOnly, "Valido")
                             If TextBox1.Text = Reader("player_login") And TextBox2.Text = Reader("player_senha") Then
-                                'MsgBox("Logado", MsgBoxStyle.OkOnly, "Valido")
+                                Session.Add("user", Reader("player_name"))
+                                Session.Add("id", Reader("player_id"))
                                 Response.Redirect("ListaDePets.aspx")
-                                Session("user") = Reader("player_name")
-
                             Else
                                 MsgBox("Desculpe, Seu login/senha pode estar incorreto", MsgBoxStyle.OkOnly, "Invalido")
                             End If

@@ -69,6 +69,7 @@
                 'Dim cntx = New EfContext()
 
                 Protected Sub Initi()
+                    MsgBox(Session("pet_id").ToString, MsgBoxStyle.OkOnly, "Invalido")
                     'Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
                     Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\Clodoaldo Basaglia\Documents\LinguagemDeProgramação\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
                         Conn.Open()
