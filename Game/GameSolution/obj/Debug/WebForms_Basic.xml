@@ -37,6 +37,132 @@ GameSolution
  Retorna o objeto de log Asp.
  </summary>
 </member>
+<member name="F:GameSolution.CadastrarPet._form1">
+<summary>
+Controle form1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.CadastrarPet._TextBox1">
+<summary>
+Controle TextBox1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.CadastrarPet._Button1">
+<summary>
+Controle Button1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.CadastrarPet._Button2">
+<summary>
+Controle Button2.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.CadastrarUser._form1">
+<summary>
+Controle form1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.CadastrarUser._TextBox1">
+<summary>
+Controle TextBox1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.CadastrarUser._TextBox2">
+<summary>
+Controle TextBox2.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.CadastrarUser._TextBox3">
+<summary>
+Controle TextBox3.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.CadastrarUser._Button1">
+<summary>
+Controle Button1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.CadastrarUser._Button2">
+<summary>
+Controle Button2.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.ListaDePets._form1">
+<summary>
+Controle form1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.ListaDePets._Button1">
+<summary>
+Controle Button1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.ListaDePets._Button2">
+<summary>
+Controle Button2.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.ListaDePets._Table1">
+<summary>
+Controle Table1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
 <member name="F:GameSolution.Login._form1">
 <summary>
 Controle form1.
@@ -85,6 +211,15 @@ Modificar a declaração do campo de movimento do arquivo de designer para o arq
 <member name="F:GameSolution.Login._Button1">
 <summary>
 Controle Button1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+</remarks>
+</member>
+<member name="F:GameSolution.Login._Button2">
+<summary>
+Controle Button2.
 </summary>
 <remarks>
 Campo gerado automaticamente.

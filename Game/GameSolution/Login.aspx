@@ -14,6 +14,10 @@
             <asp:Label ID="Label2" runat="server" Text="Senha"></asp:Label><asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
             <asp:Button ID="Button1" runat="server" Text="Entrar" />
         </div>
+        <div>
+            Ainda não é cadastrado? Clique Aqui!
+            <asp:Button ID="Button2" runat="server" Text="Cadastrar" />
+        </div>
     </form>
 </body>
     <script runat="server">
@@ -24,30 +28,23 @@
                 Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
                     Comm.CommandText = "SELECT * FROM Jogadores"
                     Comm.ExecuteScalar()
-
-                    Console.WriteLine("DataReader:")
                     Using Reader = Comm.ExecuteReader()
                         While Reader.Read()
-                            Console.WriteLine("Nome do Cliente: {0}", Reader("Nome"))
+                            If TextBox1.Text = Reader("player_login") And TextBox2.Text = Reader("player_senha") Then
+                                Session.Add("user", Reader("player_name"))
+                                Session.Add("id", Reader("player_id"))
+                                Response.Redirect("ListaDePets.aspx")
+                            Else
+                                'nada
+                            End If
                         End While
+                        MsgBox("Desculpe, Seu login/senha pode estar incorreto", MsgBoxStyle.OkOnly, "Invalido")
                     End Using
-
                 End Using
-
-                '                MsgBox("Abriu conexão", MsgBoxStyle.OkOnly, "Valido")
-                'Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
-                '    Comm.CommandText = "select * from Jogadores"
-                '    Comm.ExecuteNonQuery()
-                '    MsgBox("Chegou no reader", MsgBoxStyle.OkOnly, "Valido")
-
-                'End Using
             End Using
-
-            If TextBox1.Text = "rfb" And TextBox2.Text = "reflection" Then
-                MsgBox("Logado", MsgBoxStyle.OkOnly, "Valido")
-            Else
-                MsgBox("Sorry, username or password not found", MsgBoxStyle.OkOnly, "Invalid")
-            End If
+        End Sub
+        Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+            Response.Redirect("CadastrarUser.aspx")
         End Sub
     </script>
 </html>

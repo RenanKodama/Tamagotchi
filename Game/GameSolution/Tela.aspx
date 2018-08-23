@@ -11,7 +11,11 @@
         </head>
 
         <body style="height: 380px; width: 510px; text-align: center;">
+           
             <form id="form1" runat="server">
+                 <div>
+                <asp:Button ID="Button2" runat="server" Text="Voltar" />
+            </div>
                 <asp:Panel ID="PanelActions" runat="server" style="position:absolute; top: 326px; left: 15px; width: 315px; height: 65px;">
                     <asp:Button ID="Play"       runat="server" OnClick="ButtonPlay_Click"   style="position:absolute; top: 35px; height: 22px; width: 46px; left: 126px;" Text="Play" />
                     <asp:Button ID="Cure"       runat="server" OnClick="ButtonCure_Click"   style="position:absolute; top: 35px; height: 22px; width: 46px; left: 63px;" Text="Cure" />
@@ -69,6 +73,7 @@
                 'Dim cntx = New EfContext()
 
                 Protected Sub Initi()
+
                     'Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\renan\Desktop\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
                     Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\Clodoaldo Basaglia\Documents\LinguagemDeProgramação\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
                         Conn.Open()
@@ -145,6 +150,7 @@
 
                         PanelStatus.Update()
                     End If
+
                 End Sub
 
                 Protected Sub ButtonFlush_Click(sender As Object, e As EventArgs)
@@ -255,6 +261,8 @@
                 End Sub
 
                 Protected Sub Page_Load(sender As Object, e As EventArgs)
+                    'MsgBox("ID da query" + Request.QueryString("id").ToString, MsgBoxStyle.OkOnly, "Invalido")
+
                     If person.GetSleeping = False Then
                         PanelImage.BackColor = System.Drawing.Color.Yellow
                     Else
@@ -295,6 +303,21 @@
                     Dim aux_energy As Integer = person.GetEnergy()
                     Dim aux_toilet As Integer = person.GetToilet()
                     Dim aux_sleeping As Boolean = person.GetSleeping()
+                    'UPDATE NA TUPLA DO PERSONAGEM
+                    Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\Clodoaldo Basaglia\Documents\LinguagemDeProgramação\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
+                        Conn.Open()
+                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                            Comm.CommandText = "UPDATE Pet SET pet_energy=@energy,pet_happy=@happy,pet_health=@health,pet_hunger=@hunger,pet_sleeping=@sleeping,pet_toilet=@toilet WHERE pet_id=@id"
+                            Comm.Parameters.AddWithValue("@id", Request.QueryString("id").ToString)
+                            Comm.Parameters.AddWithValue("@energy", aux_energy)
+                            Comm.Parameters.AddWithValue("@happy", aux_happy)
+                            Comm.Parameters.AddWithValue("@health", aux_health)
+                            Comm.Parameters.AddWithValue("@hunger", aux_hunger)
+                            Comm.Parameters.AddWithValue("@sleeping", aux_sleeping)
+                            Comm.Parameters.AddWithValue("@toilet", aux_toilet)
+                            Comm.ExecuteScalar()
+                        End Using
+                    End Using
 
                     If aux_sleeping = False Then
                         If aux_happy <= 25 Then
@@ -399,6 +422,23 @@
 
 
                 Protected Sub Timer_Tick1(ByVal sender As Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+                    Using Conn As New System.Data.SQLite.SQLiteConnection("Data Source=C:\Users\Clodoaldo Basaglia\Documents\LinguagemDeProgramação\Tamagotchi\Game\GameSolution\BD_SQL_Lite.db")
+                        Conn.Open()
+                        Using Comm As New System.Data.SQLite.SQLiteCommand(Conn)
+                            Comm.CommandText = "SELECT * FROM Pet WHERE pet_id=" + Request.QueryString("id").ToString
+                            Comm.ExecuteScalar()
+                            Using Reader = Comm.ExecuteReader()
+                                While Reader.Read()
+                                    person.SetEnergy(Reader("pet_energy"))
+                                    person.SetHappy(Reader("pet_happy"))
+                                    person.SetHealth(Reader("pet_health"))
+                                    person.SetHunger(Reader("pet_hunger"))
+                                    person.SetSleeping(Reader("pet_sleeping"))
+                                    person.SetToilet(Reader("pet_toilet"))
+                                End While
+                            End Using
+                        End Using
+                    End Using
                     Dim aux_happy As Integer = person.GetHappy()
                     Dim aux_hunger As Integer = person.GetHunger()
                     Dim aux_health As Integer = person.GetHealth()
@@ -449,7 +489,10 @@
 
                     PanelStatus.Update()
                 End Sub
+                Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+                    Response.Redirect("ListaDePets.aspx")
 
+                End Sub
             </script>
         </form>
     </body>
