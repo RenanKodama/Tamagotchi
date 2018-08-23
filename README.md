@@ -12,8 +12,7 @@
    
 <h3>Obejtivo:</h3>
 
-        Jogo desenvolvido para a disciplina de Desenvolvimento de Jogos (DJ36O-ICO), baseado no estilo jogo de 
-     plataforma desenvolvido para SmartPhones.
+        Ainda em construção....
     
     
     
